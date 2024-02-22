@@ -2,6 +2,7 @@ import os
 import speech_recognition as sr
 import soundfile
 import dotenv
+import shutil
 
 dotenv_file = dotenv.find_dotenv()
 dotenv.load_dotenv(dotenv_file)
@@ -39,14 +40,22 @@ if os.environ['isremaked'] == '0':
         except:
             print("Error, BypassFiles : " + u)
     print(remaked_store)
-
+    # file copy to output folder
+    
+    for x in remaked_store:
+        print(x)
+        try:
+            shutil.copy(x, OUTPUT_PATH)
+        except:
+            print("An Error Occured, BypassFiles : " + x)
+    dotenv.set_key(dotenv_file, "isremaked", "1")
 else:
     print("this data is already remaked")
 
+
+# remaked_store = os.listdir(OUTPUT_PATH)
+
 # for j in remaked_store:
-#     data, samplerate = soundfile.read(j)
-#     remaked = j.split('.')[0] + 'neo' + '.wav'
-#     soundfile.write(remaked, data, samplerate, subtype='PCM_16')
     
 #     with sr.AudioFile(j) as source:
         
