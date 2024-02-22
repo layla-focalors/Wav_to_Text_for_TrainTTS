@@ -9,10 +9,6 @@ dotenv.load_dotenv(dotenv_file)
 
 print(os.environ['isremaked'])
 
-    
-
-# 나중에 절대경로로 변경
-
 fileList = os.listdir('./nilou/wav')
 filePath = []
 for i in fileList:
@@ -23,6 +19,7 @@ r = sr.Recognizer()
 remaked_store = []
 
 OUTPUT_PATH = 'D:\\닐루_TTS\\IGISS\\output'
+# chage here to your output path
 
 # print(filePath)
 if os.environ['isremaked'] == '0':
@@ -69,3 +66,10 @@ for j in remaked_store:
             store.append('nilou/origin/' + j + '|0|' + '')
             
 print(store)
+file_name = './korean_train.txt'
+
+with open(file_name, 'w+') as file:
+    file.write('\n'.join(store))
+    print('file writing....')
+    
+print('file writing finished')
