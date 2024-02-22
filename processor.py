@@ -52,13 +52,20 @@ if os.environ['isremaked'] == '0':
 else:
     print("this data is already remaked")
 
+remaked_store = os.listdir(OUTPUT_PATH)
 
-# remaked_store = os.listdir(OUTPUT_PATH)
-
-# for j in remaked_store:
+store = []
+# print(remaked_store)
+for j in remaked_store:
     
-#     with sr.AudioFile(j) as source:
-        
-#         audio_data = r.record(source)
-#         text = r.recognize_google(audio_data)
-#         print("Audio File : " + j + '\noutput : ' + text)
+    with sr.AudioFile(OUTPUT_PATH + '\\' + j) as source:
+        try:
+            audio_data = r.record(source)
+            text = r.recognize_google(audio_data, language = 'ko-KR', show_all = True )
+            print(text)
+            store.append('nilou/origin/' + j + '|0|' + text['alternative'][0]['transcript'])
+        except:
+            print("Error, BypassFiles : " + j)
+            store.append('nilou/origin/' + j + '|0|' + '')
+            
+print(store)
