@@ -1,0 +1,5 @@
+os
+speech_recognition
+soundfile
+dotenv
+shutil
