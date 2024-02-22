@@ -1,6 +1,14 @@
 import os
 import speech_recognition as sr
 import soundfile
+import dotenv
+
+dotenv_file = dotenv.find_dotenv()
+dotenv.load_dotenv(dotenv_file)
+
+print(os.environ['isremaked'])
+
+    
 
 # 나중에 절대경로로 변경
 
@@ -15,21 +23,25 @@ remaked_store = []
 
 OUTPUT_PATH = 'D:\\닐루_TTS\\IGISS\\output'
 
-print(filePath)
-
+# print(filePath)
+if os.environ['isremaked'] == '0':
 # file ReConverter
-for u in filePath:
-    print(u)
-    try:
-        os.chdir('D:\\닐루_TTS\\IGISS\\')
-        data, samplerate = soundfile.read(u)
-        remaked = 'D:\\닐루_TTS\\IGISS\\' + u.split('.')[1] + 'neo' + '.wav'
-        # print('remaked : ' + remaked)
-        os.chdir(OUTPUT_PATH)
-        soundfile.write(remaked, data, samplerate, subtype='PCM_16')
-    except:
-        print("Error, BypassFiles : " + u)
-print(remaked_store)
+    for u in filePath:
+        print(u)
+        try:
+            os.chdir('D:\\닐루_TTS\\IGISS\\')
+            data, samplerate = soundfile.read(u)
+            remaked = 'D:\\닐루_TTS\\IGISS\\' + u.split('.')[1] + 'neo' + '.wav'
+            # print('remaked : ' + remaked)
+            os.chdir(OUTPUT_PATH)
+            soundfile.write(remaked, data, samplerate, subtype='PCM_16')
+            remaked_store.append(remaked)
+        except:
+            print("Error, BypassFiles : " + u)
+    print(remaked_store)
+
+else:
+    print("this data is already remaked")
 
 # for j in remaked_store:
 #     data, samplerate = soundfile.read(j)
